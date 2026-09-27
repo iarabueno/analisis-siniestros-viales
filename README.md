@@ -78,8 +78,8 @@ Aparte, `dim_comuna_geo` guarda el centroide aproximado de cada comuna (el prome
 | Comunas con formatos mezclados (`"Comuna 8"`, `"8"`, vacío) | Se normalizan a `Comuna N`. Todo lo que queda fuera de 1–15 pasa a `SIN DATO`. |
 | Nulos representados de varias maneras (`SD`, `#¡REF!`, vacío, NaN) | Se unifican en `SIN DATO`, también dentro de los pares de participantes (`MOTO-SD` → `MOTO-SIN DATO`). |
 | `dia_siniestro` que no coincide con `fecha_siniestro` (1 caso) | La **fecha** es la fuente de verdad. Año, trimestre, mes y día se derivan de ella. |
-| `total_victimas` distinto de leves + graves + mortales (2 casos) | El total se **recalcula** como la suma, porque el desglose por gravedad es el dato más granular. |
-| Hora vacía o fuera de rango | Se usa `hora = -1` con turno `SIN DATO`, para no perder el siniestro. |
+| `total_victimas` informado como `SD` (3.276 casos) o distinto de leves + graves + mortales (2 casos) | El total se **recalcula** como la suma, porque el desglose por gravedad es el dato más granular y está completo. |
+| Hora vacía o fuera de rango (se usa `rango_horario`, la hora entera) | Se usa `hora = -1` con turno `SIN DATO`, para no perder el siniestro. |
 
 Cada ejecución imprime un reporte con la cantidad de filas afectadas por cada regla.
 
