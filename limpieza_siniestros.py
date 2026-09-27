@@ -25,9 +25,9 @@ SALIDA_DEFAULT = "salida"
 SIN_DATO = "SIN DATO"
 VALORES_NULOS = {"", "SD", "S/D", "NAN", "#¡REF!", "#REF!", "SIN DATO"}
 
-# Columnas de coordenadas del CSV original (verificar nombres si cambian).
-COL_LATITUD = "latitud"
-COL_LONGITUD = "longitud"
+# Columnas de coordenadas del CSV original.
+COL_LATITUD = "latitud_siniestro"
+COL_LONGITUD = "longitud_siniestro"
 
 DIAS_SEMANA = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
@@ -119,13 +119,18 @@ def limpiar(df):
 
     # Víctimas: el total se recalcula como suma de leves + graves + mortales.
     # Decisión: el desglose por gravedad es el dato más granular, así que se
-    # toma como fuente de verdad (en el dataset original, 2 filas no cierran).
+    # toma como fuente de verdad. Cubre dos casos distintos del dataset:
+    #   - total informado como "SD" (sin dato) -> se completa con la suma;
+    #   - total informado que no coincide con el desglose -> se corrige.
     cols_vic = ["numero_victimas_leve_siniestro", "numero_victimas_grave_siniestro",
                 "numero_victimas_mortal_siniestro"]
-    for col in cols_vic + ["numero_total_de_victimas"]:
+    for col in cols_vic:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0).astype(int)
+    total_informado = pd.to_numeric(df["numero_total_de_victimas"], errors="coerce")
     suma = df[cols_vic].sum(axis=1)
-    reporte["filas con total de víctimas corregido"] = int((suma != df["numero_total_de_victimas"]).sum())
+    reporte["filas con total de víctimas sin dato (completado con la suma)"] = int(total_informado.isna().sum())
+    reporte["filas con total de víctimas inconsistente (corregido)"] = int(
+        (total_informado.notna() & (total_informado != suma)).sum())
     df["numero_total_de_victimas"] = suma
 
     duplicados = df["id_siniestro"].duplicated().sum()
