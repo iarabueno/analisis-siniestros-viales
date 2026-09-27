@@ -2,7 +2,7 @@
 
 Proyecto de Business Intelligence: un data warehouse para analizar los siniestros viales registrados en la Ciudad de Buenos Aires entre 2019 y 2025, explotado con una herramienta OLAP (Google Looker Studio).
 
-> Trabajo en equipo de 4 personas para la materia de Business Intelligence. Mi parte, que es lo que está en este repositorio: el proceso ETL en Python, el modelo dimensional y el dashboard.
+> Trabajo en equipo de 4 personas para la materia de Business Intelligence. 
 
 ![Dashboard en Looker Studio](dashboard.png)
 
