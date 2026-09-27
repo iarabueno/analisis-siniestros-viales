@@ -4,7 +4,7 @@ Proyecto de Business Intelligence: un data warehouse para analizar los siniestro
 
 > Trabajo en equipo de 4 personas para la materia de Business Intelligence. Mi parte, que es lo que está en este repositorio: el proceso ETL en Python, el modelo dimensional y el dashboard.
 
-**Dashboard:** [ver en Looker Studio](https://lookerstudio.google.com/reporting/7e02de44-2f4e-44da-ba43-50cbba66754f/page/OXK9F)
+![Dashboard en Looker Studio](dashboard.png)
 
 ## Preguntas de negocio
 
